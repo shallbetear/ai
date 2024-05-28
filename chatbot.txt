@@ -1,0 +1,46 @@
+Ex.no 10 DESIGNING A CHATBOT APPLICATION
+
+AIM - to write a python program to design a simple chatbot application
+
+ALGORITHM 
+
+1.Initialization: Define a dictionary of message triggers and responses, and functions for generating responses and handling main functionality.
+
+2.Generating Responses: Check user input against triggers, randomly select a response if found, or return a default response if not.
+
+3.Main Functionality: Loop to prompt user input until "exit" is entered, then print a goodbye message and exit, or generate and print a response based on user input.
+
+4.Execution: Call the main function to start the chatbot.
+
+PROGRAM,
+
+import random
+
+# Define responses
+responses = {
+    "hi": ["Hello!", "Hi there!", "Hey!"],
+    "how are you": ["I'm good, thank you!", "Feeling great, thanks!"],
+    "bye": ["Goodbye!", "See you later!", "Bye! Have a nice day!"]
+}
+
+# Function to generate response
+def get_response(message):
+    message = message.lower()
+    if message in responses:
+        return random.choice(responses[message])
+    else:
+        return "I'm sorry, I don't understand that."
+
+# Main function
+def main():
+    print("Chatbot: Hello! How can I help you today?")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'exit':
+            print("Chatbot: Goodbye!")
+            break
+        response = get_response(user_input)
+        print("Chatbot:", response)
+
+if __name__ == "__main__":
+    main()

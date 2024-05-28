@@ -1,0 +1,46 @@
+5.TRAVELLING SALESPERSON PROBLEM USING HEURISTIC APPROACH
+
+AIM - to write a python program to implement travelling salesperson problem using heuristic approach
+
+Algorithm:
+
+1. Initialize an array visited to keep track of visited cities. Initially, set all entries to False.
+2. Initialize an empty list path to store the sequence of cities visited.
+3. Mark the start city as visited and add it to the path list.
+4. Repeat the following steps until all cities are visited:
+     a. Set the current_city as the last city added to the path.
+     b. Find the nearest unvisited city to the current_city.
+     c. Mark the nearest unvisited city as visited and add it to the path list.
+5. Add the start city to the end of the path list to complete the cycle.
+6. Return the path list as the shortest path.
+program:
+import numpy as np
+def nearest_neighbor(graph, start):
+    num_cities = len(graph)
+    visited = [False] * num_cities
+    path = [start]
+    visited[start] = True
+    
+    for _ in range(num_cities - 1):
+        current_city = path[-1]
+        nearest_city = None
+        nearest_distance = float('inf')
+        for city in range(num_cities):
+            if not visited[city] and graph[current_city][city] < nearest_distance:
+                nearest_city = city
+                nearest_distance = graph[current_city][city]
+        path.append(nearest_city)
+        visited[nearest_city] = True
+    
+    path.append(start)  # Return to the start city
+    return path
+graph = np.array([
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+])
+start_city = 0
+shortest_path = nearest_neighbor(graph, start_city)
+print("Shortest path:", shortest_path)
+

@@ -1,0 +1,51 @@
+6.knowledge representation and inference predicate logic
+AIM:
+	To write a code to represent knowledge and perform inference using predicate logic in Python. 
+ALGORITHM
+1.Initialize an empty list called knowledge_base to store facts about relationships between individuals.
+
+2.Define a function is_parent(x, y) that checks if individual x is the parent of individual y.
+
+3.Define a function is_grandparent(x, y) that checks if individual x is the grandparent of individual y
+
+4.Define a function add_knowledge(knowledge, fact) to add new facts to the knowledge base.
+
+5.Define a function infer_grandparent(knowledge, x, y) to infer if individual x is the grandparent of individual y
+
+6.Add initial facts to the knowledge base, such as parent-child relationships.
+
+7.Use the defined functions to query relationships and perform inference.
+
+program:
+knowledge_base = []
+
+def is_parent(x, y):
+    """Predicate to check if x is the parent of y."""
+    return (x, "parent", y) in knowledge_base
+
+
+def is_grandparent(x, y):
+    """Predicate to check if x is the grandparent of y."""
+    for z in knowledge_base:
+        if z[1] == "parent" and z[2] == y:
+            return is_parent(x, z[0])
+    return False
+
+def add_knowledge(knowledge, fact):
+    """Add a new fact to the knowledge base."""
+    if fact not in knowledge:
+        knowledge.append(fact)
+
+
+def infer_grandparent(knowledge, x, y):
+    """Infer if x is the grandparent of y."""
+    for z in knowledge:
+        if z[1] == "parent" and z[2] == y:
+            if is_parent(x, z[0]):
+                return True
+    return False
+
+add_knowledge(knowledge_base, ("John", "parent", "Alice"))
+add_knowledge(knowledge_base, ("Alice", "parent", "Bob"))
+print(is_parent("John", "Alice"))  # True
+print(infer_grandparent(knowledge_base, "John", "Bob"))  # True

@@ -1,0 +1,47 @@
+Algorithm:
+
+1.Start at the root node 'A' and print it. Mark it as visited.
+2.Visit the first neighbor of 'A', which is 'B'. Print it and mark it as visited.
+3.Visit the first neighbor of 'B', which is 'D'. Print it and mark it as visited.
+4.Since 'D' has no neighbors, backtrack to 'B'.
+5.Visit the next neighbor of 'B', which is 'E'. Print it and mark it as visited.
+6.Since 'E' has no neighbors, backtrack to 'A'.
+7.Visit the second neighbor of 'A', which is 'C'. Print it and mark it as visited.
+8.Visit the only neighbor of 'C', which is 'F'. Print it and mark it as visited.
+9.Since 'F' has no neighbors, backtrack to 'C'.
+10.Since all neighbors of 'A' have been visited, the algorithm terminates.
+
+
+PROGRAM:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+visited = set()
+
+
+def dfs(visited, graph, node):
+    if node not in visited:
+        print(node)
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(visited, graph, neighbor)
+
+
+# Driver Code
+dfs(visited, graph, 'A')
+
+OUTPUT:
+A
+B
+D
+E
+F
+C
+

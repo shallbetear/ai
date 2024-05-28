@@ -1,0 +1,48 @@
+
+algorithm:
+
+1.Start at the root node 'A' and mark it as visited. Add it to the queue.
+2.Remove 'A' from the queue and print it.
+3.Visit the neighbors of 'A', which are 'B' and 'C'. Add them to the queue and mark them as visited.
+4.Remove 'B' from the queue and print it.
+5.Visit the neighbors of 'B', which are 'D' and 'E'. Add them to the queue and mark them as visited.
+6.Remove 'C' from the queue and print it.
+7.Visit the neighbor of 'C', which is 'F'. Add it to the queue and mark it as visited.
+8.Remove 'D' from the queue and print it (since it has no neighbors, it won't be added to the queue again).
+9.Remove 'E' from the queue and print it (since it has no neighbors, it won't be added to the queue again).
+10.Remove 'F' from the queue and print it (since it has no neighbors, it won't be added to the queue again).
+
+PROGRAM:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+visited = []
+queue = []
+
+
+def bfs(visited, graph, node):
+    visited.append(node)
+    queue.append(node)
+
+    while queue:
+        s = queue.pop(0)
+        print(s, end=" ")
+
+        for neighbor in graph[s]:
+            if neighbor not in visited:
+                visited.append(neighbor)
+                queue.append(neighbor)
+
+
+# Driver Code
+bfs(visited, graph, 'A')
+
+output:
+A B C D E F

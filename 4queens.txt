@@ -1,0 +1,63 @@
+ex.no.9 solving 4-queen problem
+
+aim - to write a python program to solve 4 queen problem.
+
+algorithm,
+
+1. Initialize N as the size of the chessboard (N = 4).
+2. Define a function `printSolution(board)` to print the placement of queens on the board.
+3. Define a function `isSafe(board, row, col)` to check if it's safe to place a queen at position (row, col) on the board.
+4. Define a recursive function `solveNQUtil(board, col)` to solve the N-Queens problem using backtracking.
+5. Define a function `solveNQ()` to initialize the chessboard, call `solveNQUtil()` to solve the problem, and print the solution.
+6. Call `solveNQ()` to solve the 4-Queens problem and print the solution.
+
+
+PROGRAM,
+ 
+global N
+N = 4
+
+def printSolution(board):
+	for i in range(N):
+		for j in range(N):
+			print(board[i][j], end=' ')
+		print()
+
+
+def isSafe(board, row, col):
+	for i in range(col):
+		if board[row][i] == 1:
+			return False
+	for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+		if board[i][j] == 1:
+			return False
+	for i, j in zip(range(row, N, 1), range(col, -1, -1)):
+		if board[i][j] == 1:
+			return False
+	return True
+
+def solveNQUtil(board, col):
+	if col >= N:
+		return True
+	for i in range(N):
+		if isSafe(board, i, col):
+			board[i][col] = 1
+			if solveNQUtil(board, col + 1) == True:
+				return True
+			board[i][col] = 0
+	return False
+
+def solveNQ():
+	board = [[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0]]
+
+	if solveNQUtil(board, 0) == False:
+		print("Solution does not exist")
+		return False
+
+	printSolution(board)
+	return True
+
+solveNQ() 

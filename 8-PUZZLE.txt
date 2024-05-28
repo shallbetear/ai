@@ -1,0 +1,83 @@
+EX.NO.8 IMPLEMENT HILL CLIMBING TO SOLVE 8-PUZZLE PROBLEM
+
+AIM - to write a python program to implement hill climbing to solve 8-puzzle problem
+
+Algorithm
+
+1. Initialize initial and goal states, utility functions, and current state.
+2. Begin hill climbing loop:
+   - While True:
+     - Generate neighboring states.
+     - Calculate heuristic values for neighbors.
+     - Select best neighbor with lowest heuristic.
+     - If best neighbor improves heuristic, update current state and print it.
+     - If no better neighbor, exit loop.
+3. Check termination condition:
+   - If current state equals goal state, print "Goal state reached!".
+   - Otherwise, print "Local minimum reached!".
+4. Execute algorithm by printing initial state and calling hill climbing with it.
+
+PROGRAM
+
+import copy
+
+goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+initial_state = [[2, 8, 3], [1, 6, 4], [7, 0, 5]]
+
+
+def print_state(state):
+    for row in state:
+        print(row)
+    print()
+
+
+def find_blank(state):
+    return next((i, j) for i, row in enumerate(state) for j, val in enumerate(row) if val == 0)
+
+
+def generate_neighbors(state):
+    blank_i, blank_j = find_blank(state)
+    possible_moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    neighbors = []
+
+    for move in possible_moves:
+        new_i, new_j = blank_i + move[0], blank_j + move[1]
+        if 0 <= new_i < len(state) and 0 <= new_j < len(state[0]):
+            new_state = copy.deepcopy(state)
+            new_state[blank_i][blank_j], new_state[new_i][new_j] = new_state[new_i][new_j], new_state[blank_i][blank_j]
+            neighbors.append(new_state)
+
+    return neighbors
+
+
+def calculate_heuristic(state):
+    return sum(state[i][j] != goal_state[i][j] for i in range(3) for j in range(3) if state[i][j] != 0)
+
+
+def hill_climbing(initial_state):
+    current_state = initial_state
+    current_heuristic = calculate_heuristic(current_state)
+
+    while True:
+        neighbors = generate_neighbors(current_state)
+        best_neighbor = min(neighbors, key=calculate_heuristic)
+
+        if calculate_heuristic(best_neighbor) < current_heuristic:
+            current_state = best_neighbor
+            current_heuristic = calculate_heuristic(best_neighbor)
+            print_state(current_state)
+        else:
+            break
+
+    if current_state == goal_state:
+        print("Goal state reached!")
+    else:
+        print("Local minimum reached!")
+
+
+print("Initial state:")
+print_state(initial_state)
+hill_climbing(initial_state)
+
+
+

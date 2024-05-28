@@ -1,0 +1,64 @@
+EX.NO:1A HILL CLIMBING 
+
+algorithm:
+
+1.Import the random module to generate random numbers.
+
+2.Define the stochastic_hill_climbing function which takes a list of numbers as input.
+
+3.Generate a random index within the range of the list numbers using random.randint(0, len(numbers) - 1). This index will be used as the starting point for the algorithm.
+
+4.Initialize current_max to be the value at the randomly chosen index numbers[current_index]. This value represents the current maximum found so far.
+
+5.Set a limit on the number of iterations to avoid infinite loops. In this code, the limit is set to 100 iterations.
+
+6.Begin iterating for a fixed number of times (100 iterations in this case).
+
+7.In each iteration:
+  a. Generate another random index next_index within the range of the list numbers.
+  b. Check if the value at numbers[next_index] is greater than the current maximum (current_max).
+  c. If it is greater, update current_max to be numbers[next_index]. This represents climbing to a higher point.
+
+8.After all iterations are completed, return the current_max, which holds the maximum value found during the iterations.
+
+9.Outside the function, define a list of numbers.
+
+10.Call the stochastic_hill_climbing function with the list of numbers.
+
+11.Print the maximum number found by the algorithm.
+
+program:
+
+import random
+
+def stochastic_hill_climbing(numbers):
+
+    current_index = random.randint(0, len(numbers) - 1)
+
+    current_max = numbers[current_index]
+
+    iterations = 100 # Limit the number of iterations to avoid infinite loops
+
+    for _ in range(iterations):
+
+        next_index = random.randint(0, len(numbers) - 1)
+
+        if numbers[next_index] > current_max:
+
+            current_max = numbers[next_index]
+
+    
+
+    return current_max
+
+# Example list of numbers
+
+numbers = [1, 3, 7, 12, 9, 5]
+
+max_number = stochastic_hill_climbing(numbers)
+
+print(f"The maximum number in the list is: {max_number}")
+
+OUTPUT:
+
+The maximum number in the list is: 12
