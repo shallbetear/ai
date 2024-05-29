@@ -1,0 +1,83 @@
+Ex.no 7 fuzzy inference
+
+Aim - to write a python code to implement fuzzy inference system .
+
+Algorithm :
+
+Step 1: Define the triangular membership function `trimf(x, params)` with parameters `a`, `b`, and `c`.
+
+Step 2: Define the input and output variable ranges using `np.arange`:
+   - Define `temperature_values` and `humidity_values` ranging from 0 to 100.
+   - Define `fan_speed_values` ranging from 0 to 100.
+
+Step 3: Define membership functions for the input variables using the `trimf` function:
+   - `temperature_low` using `trimf(temperature_values, [0, 0, 50])`.
+   - `temperature_medium` using `trimf(temperature_values, [0, 50, 100])`.
+   - `temperature_high` using `trimf(temperature_values, [50, 100, 100])`.
+   - `humidity_low` using `trimf(humidity_values, [0, 0, 50])`.
+   - `humidity_medium` using `trimf(humidity_values, [0, 50, 100])`.
+   - `humidity_high` using `trimf(humidity_values, [50, 100, 100])`.
+
+Step 4: Define membership functions for the output variable using the `trimf` function:
+   - `fan_speed_low` using `trimf(fan_speed_values, [0, 0, 50])`.
+   - `fan_speed_medium` using `trimf(fan_speed_values, [0, 50, 100])`.
+   - `fan_speed_high` using `trimf(fan_speed_values, [50, 100, 100])`.
+
+Step 5: Implement fuzzy rules in the `fuzzy_rule` function based on the given conditions for temperature and humidity.
+
+Step 6: Define input values for temperature and humidity (`input_temperature`, `input_humidity`).
+
+Step 7: Apply fuzzy rules to determine the output fan speed (`output_fan_speed`) using the `fuzzy_rule` function.
+
+Step 8: Print the output fan speed.
+
+Program:
+
+import numpy as np
+
+# Define triangular membership function
+def trimf(x, params):
+    a, b, c = params
+    epsilon = 1e-10  # Small value to prevent division by zero
+    return np.maximum(0, np.minimum((x - a) / max((b - a), epsilon), (c - x) / max((c - b), epsilon)))
+
+# Define input variables
+temperature_values = np.arange(0, 101, 1)
+humidity_values = np.arange(0, 101, 1)
+
+# Define membership functions for input variables
+temperature_low = trimf(temperature_values, [0, 0, 50])
+temperature_medium = trimf(temperature_values, [0, 50, 100])
+temperature_high = trimf(temperature_values, [50, 100, 100])
+
+humidity_low = trimf(humidity_values, [0, 0, 50])
+humidity_medium = trimf(humidity_values, [0, 50, 100])
+humidity_high = trimf(humidity_values, [50, 100, 100])
+
+# Define output variable membership functions
+fan_speed_values = np.arange(0, 101, 1)
+fan_speed_low = trimf(fan_speed_values, [0, 0, 50])
+fan_speed_medium = trimf(fan_speed_values, [0, 50, 100])
+fan_speed_high = trimf(fan_speed_values, [50, 100, 100])
+
+# Define rules
+def fuzzy_rule(temperature, humidity):
+    if temperature == 'low' or humidity == 'low':
+        return 'low'
+    elif temperature == 'medium' and humidity == 'medium':
+        return 'medium'
+    elif temperature == 'high' or humidity == 'high':
+        return 'high'
+
+# Input values
+input_temperature = 75
+input_humidity = 40
+
+# Apply fuzzy rules
+output_fan_speed = fuzzy_rule(
+    'low' if input_temperature <= 50 else ('medium' if input_temperature <= 100 else 'high'),
+    'low' if input_humidity <= 50 else ('medium' if input_humidity <= 100 else 'high')
+)
+
+# Output
+print(f'Fan speed: {output_fan_speed}')
