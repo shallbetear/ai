@@ -30,3 +30,8 @@ temperature = 75
 humidity = 40
 output_fan_speed = fuzzy_rule(temperature, humidity)
 print('Fan speed:', output_fan_speed)
+
+'''
+output:
+Fan speed: low
+'''
