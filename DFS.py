@@ -17,3 +17,13 @@ def dfs(visited, graph, node):
             dfs(visited, graph, neighbor)
 
 dfs(visited, graph, 'A')
+
+'''
+output:
+A
+B
+D
+E
+F
+C
+'''
