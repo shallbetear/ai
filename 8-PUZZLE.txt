@@ -19,65 +19,40 @@ Algorithm
 
 PROGRAM
 
-import copy
+def misplaced_tiles(state, goal):
+    return sum(s != g and s != 0 for s, g in zip(state, goal))
 
-goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
-initial_state = [[2, 8, 3], [1, 6, 4], [7, 0, 5]]
-
-
-def print_state(state):
-    for row in state:
-        print(row)
-    print()
-
-
-def find_blank(state):
-    return next((i, j) for i, row in enumerate(state) for j, val in enumerate(row) if val == 0)
-
-
-def generate_neighbors(state):
-    blank_i, blank_j = find_blank(state)
-    possible_moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-    neighbors = []
-
-    for move in possible_moves:
-        new_i, new_j = blank_i + move[0], blank_j + move[1]
-        if 0 <= new_i < len(state) and 0 <= new_j < len(state[0]):
-            new_state = copy.deepcopy(state)
-            new_state[blank_i][blank_j], new_state[new_i][new_j] = new_state[new_i][new_j], new_state[blank_i][blank_j]
-            neighbors.append(new_state)
-
+def get_neighbors(state):
+    neighbors=[] 
+    i = state.index(0)
+    swap = lambda a, b: (state[a],) + (state[b],) + state[:a] + state[a+1:b] + state[b+1:]
+    if i % 3 > 0: neighbors.append(swap(i, i - 1))
+    if i % 3 < 2: neighbors.append(swap(i, i + 1))
+    if i // 3 > 0: neighbors.append(swap(i, i - 3))
+    if i // 3 < 2: neighbors.append(swap(i, i + 3))
     return neighbors
 
-
-def calculate_heuristic(state):
-    return sum(state[i][j] != goal_state[i][j] for i in range(3) for j in range(3) if state[i][j] != 0)
-
-
-def hill_climbing(initial_state):
-    current_state = initial_state
-    current_heuristic = calculate_heuristic(current_state)
-
-    while True:
-        neighbors = generate_neighbors(current_state)
-        best_neighbor = min(neighbors, key=calculate_heuristic)
-
-        if calculate_heuristic(best_neighbor) < current_heuristic:
-            current_state = best_neighbor
-            current_heuristic = calculate_heuristic(best_neighbor)
-            print_state(current_state)
-        else:
+def hill_climbing(state, goal):
+    current_state = state
+    while (cost := misplaced_tiles(current_state, goal)) > 0:
+        neighbors = get_neighbors(current_state)
+        next_state = min(neighbors, key=lambda s: misplaced_tiles(s, goal))
+        next_cost = misplaced_tiles(next_state, goal)
+        if next_cost >= cost:
             break
+        current_state = next_state
+    return current_state
 
-    if current_state == goal_state:
-        print("Goal state reached!")
-    else:
-        print("Local minimum reached!")
+def print_state(state):
+    for i in range(0, 9, 3):
+        print(state[i:i+3])
 
+initial = (3, 2, 7, 6, 8, 1, 5, 4, 0)
+goal = (1, 2, 3, 4, 5, 6, 7, 8, 0)
 
-print("Initial state:")
-print_state(initial_state)
-hill_climbing(initial_state)
+solution = hill_climbing(initial, goal)
 
-
-
+print("Initial State:")
+print_state(initial)
+print("\nSolution State:")
+print_state(solution)
