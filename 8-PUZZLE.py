@@ -1,24 +1,3 @@
-EX.NO.8 IMPLEMENT HILL CLIMBING TO SOLVE 8-PUZZLE PROBLEM
-
-AIM - to write a python program to implement hill climbing to solve 8-puzzle problem
-
-Algorithm
-
-1. Initialize initial and goal states, utility functions, and current state.
-2. Begin hill climbing loop:
-   - While True:
-     - Generate neighboring states.
-     - Calculate heuristic values for neighbors.
-     - Select best neighbor with lowest heuristic.
-     - If best neighbor improves heuristic, update current state and print it.
-     - If no better neighbor, exit loop.
-3. Check termination condition:
-   - If current state equals goal state, print "Goal state reached!".
-   - Otherwise, print "Local minimum reached!".
-4. Execute algorithm by printing initial state and calling hill climbing with it.
-
-PROGRAM
-
 def misplaced_tiles(state, goal):
     return sum(s != g and s != 0 for s, g in zip(state, goal))
 
@@ -54,5 +33,5 @@ solution = hill_climbing(initial, goal)
 
 print("Initial State:")
 print_state(initial)
-print("\nSolution State:")
+print("Solution State:")
 print_state(solution)
