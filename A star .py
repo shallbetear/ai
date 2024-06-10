@@ -1,43 +1,5 @@
-EX.No. 1b Implement A* Algorithm
-
-AIM: To Implement A* Algorithm.
-
-ALGORITHM
-
-1. The code is a class that is subclassed from the State class.
-2. The code creates an instance of the State_String class with three arguments: value, parent, and start.
-3. The goal is set to 0 because it will be used as a starting point for the path.
-4. The __init__ method initializes all three variables in this new state object.
-5. It also sets up two methods: GetDistance and CreateChildren.
-6. The code is an example of a State class that has a parent and two children.
-7. The parent will have the start and goal values, while the children will be initialized with 0 as their value.
-8. The state_string class is derived from the state class, but it has one additional function: GetDistance().
-9. This function calculates how far away from the current state's goal value this particular state is.
-10. The code is a class that holds the final magic.
-11. It has two methods: Solve and Analyze.
-12. The Solve method starts by creating an empty list of nodes, which is called path.
-13. Then it creates a PriorityQueue object with qsize() set to 0, then puts all the values in the queue into this new
-node at index 2.
-14. This process repeats until there are no more nodes left in the queue or there is only one node left in the queue,
-which means that we have found our solution!
-15. The Analyze method loops through each value from priorityQueue and checks if it's not already on visitedQueue
-or if its distance from goal is less than 1 (the length of visitedQueue).
-16. If so, they add their children to visitedQueue and create their own children using CreateChildren().
-17. The code attempts to create a class that will hold the final magic of solving a puzzle.
-18. The class is called A_Star_Solver and it has two methods, __init__() and Solve().
-19. The __init__() method initializes the state of the object by setting its start point, goal point, and priority queue.
-20. The Solve() method visits each element in the priority queue until either there are no more elements or it finds
-an element with a path that matches its own.
-21. When this happens, it sets itself as being visited on that path and moves on to visit all children of that node.
-22. After visiting all children nodes, if there are still no paths found then it returns back to the beginning state (the
-start point).
-
-
-PROGRAM:
-
 from queue import PriorityQueue
 
-# Creating Base Class
 class State(object):
     def __init__(self, value, parent, start=0, goal=0):
         self.children = []
@@ -55,7 +17,6 @@ class State(object):
     def CreateChildren(self):
         pass
 
-# Creating subclass
 class State_String(State):
     def __init__(self, value, parent, start=0, goal=0):
         super(State_String, self).__init__(value, parent, start, goal)
@@ -78,7 +39,6 @@ class State_String(State):
                 child = State_String(val, self)
                 self.children.append(child)
 
-# Creating a class that holds the final magic
 class A_Star_Solver:
     def __init__(self, start, goal):
         self.path = []
@@ -106,7 +66,6 @@ class A_Star_Solver:
             print("Goal of is not possible !" + self.goal)
         return self.path
 
-# Calling all the existing stuffs
 if __name__ == "__main__":
     start1 = "secure"
     goal1 = "rescue"
@@ -116,6 +75,7 @@ if __name__ == "__main__":
     for i in range(len(a.path)):
         print("{0}){1}".format(i, a.path[i]))
 
+'''
 OUTPUT:
 
 Starting....
@@ -125,4 +85,4 @@ Starting....
 3)srecue
 4)rsecue
 5)rescue
-
+'''
