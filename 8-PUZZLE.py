@@ -35,3 +35,15 @@ print("Initial State:")
 print_state(initial)
 print("Solution State:")
 print_state(solution)
+
+'''
+output:
+Initial State:
+(3, 2, 7)
+(6, 8, 1)
+(5, 4, 0)
+Solution State:
+(0, 4, 3)
+(2, 7, 6)
+(8, 1, 5)
+'''
