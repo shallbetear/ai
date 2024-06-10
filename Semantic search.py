@@ -18,3 +18,8 @@ related.sort(key=lambda x: x[1], reverse=True)
 suggested = [c for c,_ in related]
 
 print("Suggested content:", suggested)
+
+'''
+output:
+Suggested content: ['astronomy', 'space exploration', 'rocket technology']
+'''
