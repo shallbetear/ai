@@ -23,3 +23,8 @@ graph = np.array([
 start_city = 0
 shortest_path = nearest_neighbor(graph, start_city)
 print("Shortest path:", shortest_path)
+
+'''
+output:
+Shortest path: [0, 1, 3, 2, 0]
+'''
