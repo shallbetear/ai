@@ -22,3 +22,8 @@ def bfs(visited, graph, node):
                 queue.append(neighbor)
 
 bfs(visited, graph, 'A')
+
+'''
+output:
+A B C D E F 
+'''
