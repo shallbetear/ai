@@ -24,3 +24,11 @@ board = [[0] * N for _ in range(N)]
 if solveNQ(board, 0):
     for row in board:
     	print(row)
+
+'''
+output:
+[0, 0, 1, 0]
+[1, 0, 0, 0]
+[0, 0, 0, 1]
+[0, 1, 0, 0]
+'''
