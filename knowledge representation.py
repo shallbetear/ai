@@ -24,3 +24,9 @@ add_knowledge(knowledge_base, ("John", "parent", "Alice"))
 add_knowledge(knowledge_base, ("Alice", "parent", "Bob"))
 print(is_parent("John", "Alice")) 
 print(infer_grandparent(knowledge_base, "John", "Bob"))
+
+'''
+output:
+True
+True
+'''
